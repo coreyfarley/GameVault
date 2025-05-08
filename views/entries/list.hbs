@@ -1,0 +1,35 @@
+<h1>Entries</h1>
+
+<table border="1" cellpadding="8">
+  <thead>
+    <tr>
+      <th>Entry ID</th>
+      <th>User</th>
+      <th>Game</th>
+      <th>Status</th>
+      <th>Rating</th>
+      <th>Notes</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each entries}}
+      <tr>
+        <td>{{this.entryID}}</td>
+        <td>{{this.userName}}</td>
+        <td>{{this.gameTitle}}</td>
+        <td>{{this.status}}</td>
+        <td>{{this.rating}}</td>
+        <td>{{this.notes}}</td>
+        <td>
+          <a href="/entries/edit/{{this.entryID}}">Edit</a>
+          <form action="/entries/delete/{{this.entryID}}" method="POST" style="display:inline;">
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<p><a href="/entries/add">Add a new entry</a></p>

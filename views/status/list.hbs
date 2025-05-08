@@ -1,0 +1,25 @@
+<h1>Status Categories</h1>
+<table border="1" cellpadding="8">
+  <thead>
+    <tr>
+      <th>Status ID</th>
+      <th>Status Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each statuses}}
+      <tr>
+        <td>{{this.statusID}}</td>
+        <td>{{this.statusName}}</td>
+        <td>
+          <a href="/status/edit/{{this.statusID}}">Edit</a>
+          <form action="/status/delete/{{this.statusID}}" method="POST" style="display:inline;">
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+<p><a href="/status/add">Add a new status</a></p>

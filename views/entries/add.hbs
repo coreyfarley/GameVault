@@ -1,0 +1,30 @@
+<h1>Add New Entry</h1>
+
+<form action="/entries/add" method="POST">
+  <label for="userID">User:</label><br>
+  <select id="userID" name="userID" required>
+    {{#each users}}
+      <option value="{{this.userID}}">{{this.userName}}</option>
+    {{/each}}
+  </select><br><br>
+
+  <label for="gameID">Game:</label><br>
+  <select id="gameID" name="gameID" required>
+    {{#each games}}
+      <option value="{{this.gameID}}">{{this.title}}</option>
+    {{/each}}
+  </select><br><br>
+
+  <label for="status">Status:</label><br>
+  <input type="text" id="status" name="status" required><br><br>
+
+  <label for="rating">Rating:</label><br>
+  <input type="number" id="rating" name="rating" min="1" max="10"><br><br>
+
+  <label for="notes">Notes:</label><br>
+  <textarea id="notes" name="notes"></textarea><br><br>
+
+  <button type="submit">Add Entry</button>
+</form>
+
+<p><a href="/entries">Back to Entries List</a></p>
