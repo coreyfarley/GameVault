@@ -2,6 +2,8 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const path = require('path');
 
+// Database
+const db = require('./database/db-connector');
 
 const app = express();
 const PORT = 9123;
