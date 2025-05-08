@@ -5,10 +5,10 @@ const router = express.Router();
 // Display all platforms (dummy data for now)
 router.get('/', (req, res) => {
   const platforms = [
-    { platformID: 401, name: 'Nintendo Switch' },
-    { platformID: 402, name: 'Xbox Series X' },
-    { platformID: 403, name: 'PC' },
-    { platformID: 404, name: 'Playstation 4' }
+    { platformID: 401, name: 'Nintendo Switch', manufacturer: 'Nintendo' },
+    { platformID: 402, name: 'Xbox Series X', manufacturer: 'Microsoft' },
+    { platformID: 403, name: 'PC', manufacturer: 'Various' },
+    { platformID: 404, name: 'Playstation 4', manufacturer: 'Sony' }
   ];
 
   res.render('platforms/list', { platforms });

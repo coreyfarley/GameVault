@@ -5,10 +5,10 @@ const router = express.Router();
 // Display all games (dummy data for now)
 router.get('/', (req, res) => {
   const games = [
-    { gameID: 201, title: 'The Legend of Zelda: Breath of the Wild' },
-    { gameID: 202, title: 'Forza Horizon 5' },
-    { gameID: 203, title: 'Counter-Strike 2' },
-    { gameID: 204, title: 'The Witcher 3: Wild Hunt' }
+    { gameID: 201, publisherID: 501, title: 'The Legend of Zelda: Breath of the Wild' },
+    { gameID: 202, publisherID: 502, title: 'Forza Horizon 5' },
+    { gameID: 203, publisherID: 503, title: 'Counter-Strike 2' },
+    { gameID: 204, publisherID: 504, title: 'The Witcher 3: Wild Hunt' }
   ];
 
   res.render('games/list', { games });
@@ -17,7 +17,14 @@ router.get('/', (req, res) => {
 // === GET /games/add ===
 // Show form to add a new game
 router.get('/add', (req, res) => {
-  res.render('games/add');
+
+  // Dummy data for publishers
+  const publishers = [
+    { publisherID: 501, name: 'Nintendo' },
+    { publisherID: 502, name: 'Xbox Game Studios' },
+  ];
+
+  res.render('games/add', { publishers } );
 });
 
 // === POST /games/add ===
@@ -35,10 +42,16 @@ router.post('/add', (req, res) => {
 router.get('/edit/:id', (req, res) => {
   const dummyGame = {
     gameID: req.params.id,
+    publisherID: 501,
     title: ''
   };
 
-  res.render('games/edit', { game: dummyGame });
+  const publishers = [
+    { publisherID: 501, name: 'Nintendo' },
+    { publisherID: 502, name: 'Xbox Game Studios' },
+  ];
+
+  res.render('games/edit', { game: dummyGame, publishers });
 });
 
 // === POST /games/edit/:id ===

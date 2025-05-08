@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>Game ID</th>
+      <th>Publisher ID</th>
       <th>Title</th>
       <th>Actions</th>
     </tr>
@@ -12,6 +13,7 @@
     {{#each games}}
       <tr>
         <td>{{this.gameID}}</td>
+        <td>{{this.publisherID}}</td>
         <td>{{this.title}}</td>
         <td>
           <a href="/games/edit/{{this.gameID}}">Edit</a>

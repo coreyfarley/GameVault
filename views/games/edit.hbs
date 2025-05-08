@@ -1,6 +1,14 @@
 <h1>Edit Game</h1>
 
 <form action="/games/edit/{{game.gameID}}" method="POST">
+
+  <label for="publisherID">Publisher:</label><br>
+  <select id="publisherID" name="publisherID" required>
+    {{#each publishers}}
+      <option value="{{this.publisherID}}" {{#if (eq this.publisherID ../entry.publisherID)}}selected{{/if}}>{{this.name}}</option>
+    {{/each}}
+  </select><br><br>
+
   <label for="title">Game Title:</label><br>
   <input type="text" id="title" name="title" value="{{game.title}}" required><br><br>
 
