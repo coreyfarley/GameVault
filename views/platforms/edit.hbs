@@ -3,6 +3,8 @@
 <form action="/platforms/edit/{{platform.platformID}}" method="POST">
   <label for="name">Platform Name:</label><br>
   <input type="text" id="name" name="name" value="{{platform.name}}" required><br><br>
+  <label for="name">Manufacturer Name:</label><br>
+  <input type="text" id="manufacturer" name="manufacturer" value="{{platform.manufacturer}}" required><br><br>
 
   <button type="submit">Update Platform</button>
 </form>
