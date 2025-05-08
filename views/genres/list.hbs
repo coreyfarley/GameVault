@@ -1,0 +1,27 @@
+<h1>Genres</h1>
+
+<table border="1" cellpadding="8">
+  <thead>
+    <tr>
+      <th>Genre ID</th>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each genres}}
+      <tr>
+        <td>{{this.genreID}}</td>
+        <td>{{this.name}}</td>
+        <td>
+          <a href="/genres/edit/{{this.genreID}}">Edit</a>
+          <form action="/genres/delete/{{this.genreID}}" method="POST" style="display:inline;">
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<p><a href="/genres/add">Add a new genre</a></p>

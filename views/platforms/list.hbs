@@ -1,0 +1,27 @@
+<h1>Platforms</h1>
+
+<table border="1" cellpadding="8">
+  <thead>
+    <tr>
+      <th>Platform ID</th>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each platforms}}
+      <tr>
+        <td>{{this.platformID}}</td>
+        <td>{{this.name}}</td>
+        <td>
+          <a href="/platforms/edit/{{this.platformID}}">Edit</a>
+          <form action="/platforms/delete/{{this.platformID}}" method="POST" style="display:inline;">
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<p><a href="/platforms/add">Add a new platform</a></p>

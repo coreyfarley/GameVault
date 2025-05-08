@@ -1,0 +1,10 @@
+<h1>Edit Platform</h1>
+
+<form action="/platforms/edit/{{platform.platformID}}" method="POST">
+  <label for="name">Platform Name:</label><br>
+  <input type="text" id="name" name="name" value="{{platform.name}}" required><br><br>
+
+  <button type="submit">Update Platform</button>
+</form>
+
+<p><a href="/platforms">Cancel</a></p>

@@ -1,0 +1,10 @@
+<h1>Edit Genre</h1>
+
+<form action="/genres/edit/{{genre.genreID}}" method="POST">
+  <label for="name">Genre Name:</label><br>
+  <input type="text" id="name" name="name" value="{{genre.name}}" required><br><br>
+
+  <button type="submit">Update Genre</button>
+</form>
+
+<p><a href="/genres">Cancel</a></p>

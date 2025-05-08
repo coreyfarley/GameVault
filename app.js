@@ -19,10 +19,14 @@ app.use(express.json());
 const indexRoutes = require('./routes/index');
 const userRoutes = require('./routes/users');
 const gameRoutes = require('./routes/games');
+const genreRoutes = require('./routes/genres');
+const platformRoutes = require('./routes/platforms');
 
 app.use('/', indexRoutes);
 app.use('/users', userRoutes);
 app.use('/games', gameRoutes);
+app.use('/genres', genreRoutes);
+app.use('/platforms', platformRoutes);
 
 // Start server
 app.listen(PORT, () => {
