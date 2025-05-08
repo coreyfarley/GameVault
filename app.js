@@ -21,12 +21,14 @@ const userRoutes = require('./routes/users');
 const gameRoutes = require('./routes/games');
 const genreRoutes = require('./routes/genres');
 const platformRoutes = require('./routes/platforms');
+const publisherRoutes = require('./routes/publishers');
 
 app.use('/', indexRoutes);
 app.use('/users', userRoutes);
 app.use('/games', gameRoutes);
 app.use('/genres', genreRoutes);
 app.use('/platforms', platformRoutes);
+app.use('/publishers', publisherRoutes);
 
 // Start server
 app.listen(PORT, () => {

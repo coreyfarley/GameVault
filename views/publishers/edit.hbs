@@ -1,0 +1,10 @@
+<h1>Edit Publisher</h1>
+
+<form action="/publishers/edit/{{publisher.publisherID}}" method="POST">
+  <label for="name">Publisher Name:</label><br>
+  <input type="text" id="name" name="name" value="{{publisher.name}}" required><br><br>
+
+  <button type="submit">Update Publisher</button>
+</form>
+
+<p><a href="/publishers">Cancel</a></p>

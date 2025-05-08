@@ -1,0 +1,27 @@
+<h1>Publishers</h1>
+
+<table border="1" cellpadding="8">
+  <thead>
+    <tr>
+      <th>Publisher ID</th>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each publishers}}
+      <tr>
+        <td>{{this.publisherID}}</td>
+        <td>{{this.name}}</td>
+        <td>
+          <a href="/publishers/edit/{{this.publisherID}}">Edit</a>
+          <form action="/publishers/delete/{{this.publisherID}}" method="POST" style="display:inline;">
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<p><a href="/publishers/add">Add a new publisher</a></p>
