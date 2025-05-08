@@ -1,0 +1,26 @@
+<h1>Game-Platform Associations</h1>
+<table border="1" cellpadding="8">
+  <thead>
+    <tr>
+      <th>Game Title</th>
+      <th>Platform Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each associations}}
+      <tr>
+        <td>{{this.gameTitle}}</td>
+        <td>{{this.platformName}}</td>
+        <td>
+          <form action="/game-platforms/delete" method="POST" style="display:inline;">
+            <input type="hidden" name="gameID" value="{{this.gameID}}">
+            <input type="hidden" name="platformID" value="{{this.platformID}}">
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+<p><a href="/game-platforms/add">Add a new association</a></p>

@@ -2,6 +2,7 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const path = require('path');
 
+
 const app = express();
 const PORT = 9123;
 
@@ -32,6 +33,8 @@ const platformRoutes = require('./routes/platforms');
 const publisherRoutes = require('./routes/publishers');
 const entryRoutes = require('./routes/entries');
 const statusRoutes = require('./routes/status');
+const gamePlatformsRoutes = require('./routes/game-platforms');
+const gameGenresRoutes = require('./routes/game-genres');
 
 app.use('/', indexRoutes);
 app.use('/users', userRoutes);
@@ -41,6 +44,8 @@ app.use('/platforms', platformRoutes);
 app.use('/publishers', publisherRoutes);
 app.use('/entries', entryRoutes);
 app.use('/status', statusRoutes);
+app.use('/game-platforms', gamePlatformsRoutes);
+app.use('/game-genres', gameGenresRoutes);
 
 // Start server
 app.listen(PORT, () => {

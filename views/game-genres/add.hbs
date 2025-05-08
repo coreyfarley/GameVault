@@ -1,0 +1,18 @@
+<h1>Add Game-Genre Association</h1>
+<form action="/game-genres/add" method="POST">
+  <label for="gameID">Game:</label>
+  <select name="gameID" id="gameID">
+    {{#each games}}
+      <option value="{{this.gameID}}">{{this.title}}</option>
+    {{/each}}
+  </select>
+  <br>
+  <label for="genreID">Genre:</label>
+  <select name="genreID" id="genreID">
+    {{#each genres}}
+      <option value="{{this.genreID}}">{{this.name}}</option>
+    {{/each}}
+  </select>
+  <br>
+  <button type="submit">Add Association</button>
+</form>

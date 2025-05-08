@@ -1,0 +1,26 @@
+<h1>Game-Genre Associations</h1>
+<table border="1" cellpadding="8">
+  <thead>
+    <tr>
+      <th>Game Title</th>
+      <th>Genre Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each associations}}
+      <tr>
+        <td>{{this.gameTitle}}</td>
+        <td>{{this.genreName}}</td>
+        <td>
+          <form action="/game-genres/delete" method="POST" style="display:inline;">
+            <input type="hidden" name="gameID" value="{{this.gameID}}">
+            <input type="hidden" name="genreID" value="{{this.genreID}}">
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+<p><a href="/game-genres/add">Add a new association</a></p>
