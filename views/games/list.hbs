@@ -1,0 +1,27 @@
+<h1>Games</h1>
+
+<table border="1" cellpadding="8">
+  <thead>
+    <tr>
+      <th>Game ID</th>
+      <th>Title</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each games}}
+      <tr>
+        <td>{{this.gameID}}</td>
+        <td>{{this.title}}</td>
+        <td>
+          <a href="/games/edit/{{this.gameID}}">Edit</a>
+          <form action="/games/delete/{{this.gameID}}" method="POST" style="display:inline;">
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<p><a href="/games/add">Add a new game</a></p>

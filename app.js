@@ -18,9 +18,11 @@ app.use(express.json());
 // Route includes
 const indexRoutes = require('./routes/index');
 const userRoutes = require('./routes/users');
+const gameRoutes = require('./routes/games');
 
 app.use('/', indexRoutes);
 app.use('/users', userRoutes);
+app.use('/games', gameRoutes);
 
 // Start server
 app.listen(PORT, () => {

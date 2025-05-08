@@ -1,0 +1,10 @@
+<h1>Edit Game</h1>
+
+<form action="/games/edit/{{game.gameID}}" method="POST">
+  <label for="title">Game Title:</label><br>
+  <input type="text" id="title" name="title" value="{{game.title}}" required><br><br>
+
+  <button type="submit">Update Game</button>
+</form>
+
+<p><a href="/games">Cancel</a></p>
