@@ -1,0 +1,31 @@
+<h1>Users</h1>
+
+<table border="1" cellpadding="8">
+  <thead>
+    <tr>
+      <th>User ID</th>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Join Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each users}}
+      <tr>
+        <td>{{this.userID}}</td>
+        <td>{{this.userName}}</td>
+        <td>{{this.email}}</td>
+        <td>{{this.joinDate}}</td>
+        <td>
+          <a href="/users/edit/{{this.userID}}">Edit</a>
+          <form action="/users/delete/{{this.userID}}" method="POST" style="display:inline;">
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<p><a href="/users/add">Add a new user</a></p>
