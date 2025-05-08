@@ -5,10 +5,10 @@ const router = express.Router();
 // Display all publishers (dummy data for now)
 router.get('/', (req, res) => {
   const publishers = [
-    { publisherID: 501, name: 'Nintendo' },
-    { publisherID: 502, name: 'Xbox Game Studios' },
-    { publisherID: 503, name: 'Valve' },
-    { publisherID: 504, name: 'CD Projeckt' }
+    { publisherID: 501, name: 'Nintendo', location: "Kyoto, Japan" },
+    { publisherID: 502, name: 'Xbox Game Studios', location: "Redmond, USA" },
+    { publisherID: 503, name: 'Valve', location: "Bellevue, USA" },
+    { publisherID: 504, name: 'CD Projeckt', location: "Warsaw, Poland" }
   ];
 
   res.render('publishers/list', { publishers });

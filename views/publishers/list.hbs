@@ -5,6 +5,7 @@
     <tr>
       <th>Publisher ID</th>
       <th>Name</th>
+      <th>Location</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -13,6 +14,7 @@
       <tr>
         <td>{{this.publisherID}}</td>
         <td>{{this.name}}</td>
+        <td>{{this.location}}</td>
         <td>
           <a href="/publishers/edit/{{this.publisherID}}">Edit</a>
           <form action="/publishers/delete/{{this.publisherID}}" method="POST" style="display:inline;">
