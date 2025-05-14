@@ -7,8 +7,10 @@
       <th>User</th>
       <th>Game</th>
       <th>Status</th>
+      <th>Hours logged</th>
       <th>Rating</th>
       <th>Notes</th>
+      <th>Has favorited</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -19,8 +21,10 @@
         <td>{{this.userName}}</td>
         <td>{{this.gameTitle}}</td>
         <td>{{this.status}}</td>
+        <td>{{this.hoursLogged}}</td>
         <td>{{this.rating}}</td>
         <td>{{this.notes}}</td>
+        <td>{{this.hasFavorited}}</td>
         <td>
           <a href="/entries/edit/{{this.entryID}}">Edit</a>
           <form action="/entries/delete/{{this.entryID}}" method="POST" style="display:inline;">

@@ -10,16 +10,20 @@ router.get('/', (req, res) => {
       userName: 'bennyBeav52',
       gameTitle: 'The Witcher 3',
       status: 'Completed',
+      hoursLogged: 155,
       rating: 9,
-      notes: 'Amazing storyline!'
+      notes: 'Amazing storyline!',
+      hasFavorited: 0,
     },
     {
       entryID: 2,
       userName: 'speedRacer',
       gameTitle: 'Forza Horizon 5',
       status: 'Playing',
+      hoursLogged: 23,
       rating: 8,
-      notes: 'Great graphics and gameplay.'
+      notes: 'Great graphics and gameplay.',
+      hasFavorited: 1,
     }
   ];
 

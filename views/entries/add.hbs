@@ -18,11 +18,17 @@
   <label for="status">Status:</label><br>
   <input type="text" id="status" name="status" required><br><br>
 
+  <label for="hoursLogged">Hours logged:</label><br>
+  <input type="number" id="hoursLogged" name="hoursLogged" value="{{entry.hoursLogged}}" min="0" max="99999"><br><br>
+
   <label for="rating">Rating:</label><br>
   <input type="number" id="rating" name="rating" min="1" max="10"><br><br>
 
   <label for="notes">Notes:</label><br>
   <textarea id="notes" name="notes"></textarea><br><br>
+
+  <label for="rating">Has favorited:</label><br>
+  <input type="number" id="hasFavorited" name="hasFavorited" value="{{entry.hasFavorited}}" min="0" max="1"><br><br>
 
   <button type="submit">Add Entry</button>
 </form>
