@@ -8,14 +8,35 @@ SELECT genreID, name FROM Genres;
 
 -- These are for the table listings. --
 SELECT * FROM Users;
-SELECT * FROM Games;
+
+SELECT Games.gameID, Publishers.name, Games.title
+FROM Games
+INNER JOIN Publishers ON Games.publisherID = Publishers.publisherID;
+
 SELECT * FROM Publishers;
+
 SELECT * FROM Genres;
+
 SELECT * FROM Platforms;
-SELECT * FROM UserGameEntries;
+
+SELECT UserGameEntries.entryID, Users.userName, Games.title, StatusCategories.status, UserGameEntries.hoursLogged, UserGameEntries.rating, UserGameEntries.review, UserGameEntries.hasFavorited
+FROM UserGameEntries
+INNER JOIN Users ON UserGameEntries.userID = Users.userID
+INNER JOIN Games ON UserGameEntries.gameID = Games.gameID
+INNER JOIN StatusCategories ON UserGameEntries.statusID = StatusCategories.statusID;
+
 SELECT * FROM StatusCategories;
-SELECT * FROM GamePlatforms;
-SELECT * FROM GameGenres;
+
+SELECT Games.title, Platforms.name, GamePlatforms.releaseDate
+FROM GamePlatforms
+INNER JOIN Games ON GamePlatforms.gameID = Games.gameID
+INNER JOIN Platforms ON GamePlatforms.platformID = Platforms.platformID;
+
+SELECT Games.title, Genres.name
+FROM GameGenres
+INNER JOIN Games ON GameGenres.gameID = Games.gameID
+INNER JOIN Genres ON GameGenres.genreID = Genres.genreID;
+
 
 -- Delete commands --
 DELETE FROM Users WHERE userID = :userIDInput;
