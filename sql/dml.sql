@@ -9,7 +9,7 @@ SELECT genreID, name FROM Genres;
 -- These are for the table listings. --
 SELECT * FROM Users;
 
-SELECT Games.gameID, Publishers.name, Games.title
+SELECT Games.gameID, Publishers.name AS publisherName, Games.title
 FROM Games
 INNER JOIN Publishers ON Games.publisherID = Publishers.publisherID;
 

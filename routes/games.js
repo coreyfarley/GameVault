@@ -5,10 +5,10 @@ const router = express.Router();
 // Display all games (dummy data for now)
 router.get('/', (req, res) => {
   const games = [
-    { gameID: 201, publisherID: 501, title: 'The Legend of Zelda: Breath of the Wild' },
-    { gameID: 202, publisherID: 502, title: 'Forza Horizon 5' },
-    { gameID: 203, publisherID: 503, title: 'Counter-Strike 2' },
-    { gameID: 204, publisherID: 504, title: 'The Witcher 3: Wild Hunt' }
+    { gameID: 201, publisherName: 'Nintendo', title: 'The Legend of Zelda: Breath of the Wild' },
+    { gameID: 202, publisherName: 'Xbox Game Studios', title: 'Forza Horizon 5' },
+    { gameID: 203, publisherName: 'Valve', title: 'Counter-Strike 2' },
+    { gameID: 204, publisherName: 'CD Projekt', title: 'The Witcher 3: Wild Hunt' }
   ];
 
   res.render('games/list', { games });
