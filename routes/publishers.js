@@ -1,17 +1,18 @@
 const express = require('express');
 const router = express.Router();
+const db = require('../database/db-connector');
 
 // === GET /publishers ===
-// Display all publishers (dummy data for now)
-router.get('/', (req, res) => {
-  const publishers = [
-    { publisherID: 501, name: 'Nintendo', location: "Kyoto, Japan" },
-    { publisherID: 502, name: 'Xbox Game Studios', location: "Redmond, USA" },
-    { publisherID: 503, name: 'Valve', location: "Bellevue, USA" },
-    { publisherID: 504, name: 'CD Projeckt', location: "Warsaw, Poland" }
-  ];
-
-  res.render('publishers/list', { publishers });
+// Display all publishers (from database)
+router.get('/', async (req, res) => {
+  try {
+    const query = 'SELECT * FROM Publishers';
+    const [publishers] = await db.query(query);
+    res.render('publishers/list', { publishers });
+  } catch (error) {
+    console.error("Error fetching publishers:", error);
+    res.status(500).send("Error fetching publishers from database");
+  }
 });
 
 // === GET /publishers/add ===

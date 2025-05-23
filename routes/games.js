@@ -1,17 +1,22 @@
 const express = require('express');
 const router = express.Router();
+const db = require('../database/db-connector');
 
 // === GET /games ===
-// Display all games (dummy data for now)
-router.get('/', (req, res) => {
-  const games = [
-    { gameID: 201, publisherName: 'Nintendo', title: 'The Legend of Zelda: Breath of the Wild' },
-    { gameID: 202, publisherName: 'Xbox Game Studios', title: 'Forza Horizon 5' },
-    { gameID: 203, publisherName: 'Valve', title: 'Counter-Strike 2' },
-    { gameID: 204, publisherName: 'CD Projekt', title: 'The Witcher 3: Wild Hunt' }
-  ];
-
-  res.render('games/list', { games });
+// Display all games (from database with publisher names)
+router.get('/', async (req, res) => {
+  try {
+    const query = `
+      SELECT Games.gameID, Publishers.name AS publisherName, Games.title
+      FROM Games
+      INNER JOIN Publishers ON Games.publisherID = Publishers.publisherID
+    `;
+    const [games] = await db.query(query);
+    res.render('games/list', { games });
+  } catch (error) {
+    console.error("Error fetching games:", error);
+    res.status(500).send("Error fetching games from database");
+  }
 });
 
 // === GET /games/add ===

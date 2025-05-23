@@ -1,33 +1,26 @@
 const express = require('express');
 const router = express.Router();
+const db = require('../database/db-connector');
 
 // === GET /entries ===
-// Display all entries (dummy data for now)
-router.get('/', (req, res) => {
-  const entries = [
-    {
-      entryID: 1,
-      userName: 'bennyBeav52',
-      gameTitle: 'The Witcher 3',
-      status: 'Completed',
-      hoursLogged: 155,
-      rating: 9,
-      notes: 'Amazing storyline!',
-      hasFavorited: 0,
-    },
-    {
-      entryID: 2,
-      userName: 'speedRacer',
-      gameTitle: 'Forza Horizon 5',
-      status: 'Playing',
-      hoursLogged: 23,
-      rating: 8,
-      notes: 'Great graphics and gameplay.',
-      hasFavorited: 1,
-    }
-  ];
-
-  res.render('entries/list', { entries });
+// Display all entries (from database with JOINs)
+router.get('/', async (req, res) => {
+  try {
+    const query = `
+      SELECT UserGameEntries.entryID, Users.userName, Games.title, StatusCategories.status, 
+             UserGameEntries.hoursLogged, UserGameEntries.rating, UserGameEntries.review, 
+             UserGameEntries.hasFavorited
+      FROM UserGameEntries
+      INNER JOIN Users ON UserGameEntries.userID = Users.userID
+      INNER JOIN Games ON UserGameEntries.gameID = Games.gameID
+      INNER JOIN StatusCategories ON UserGameEntries.statusID = StatusCategories.statusID
+    `;
+    const [entries] = await db.query(query);
+    res.render('entries/list', { entries });
+  } catch (error) {
+    console.error("Error fetching entries:", error);
+    res.status(500).send("Error fetching entries from database");
+  }
 });
 
 // === GET /entries/add ===

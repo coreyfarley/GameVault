@@ -1,17 +1,18 @@
 const express = require('express');
 const router = express.Router();
+const db = require('../database/db-connector');
 
 // === GET /platforms ===
-// Display all platforms (dummy data for now)
-router.get('/', (req, res) => {
-  const platforms = [
-    { platformID: 401, name: 'Nintendo Switch', manufacturer: 'Nintendo' },
-    { platformID: 402, name: 'Xbox Series X', manufacturer: 'Microsoft' },
-    { platformID: 403, name: 'PC', manufacturer: 'Various' },
-    { platformID: 404, name: 'Playstation 4', manufacturer: 'Sony' }
-  ];
-
-  res.render('platforms/list', { platforms });
+// Display all platforms (from database)
+router.get('/', async (req, res) => {
+  try {
+    const query = 'SELECT * FROM Platforms';
+    const [platforms] = await db.query(query);
+    res.render('platforms/list', { platforms });
+  } catch (error) {
+    console.error("Error fetching platforms:", error);
+    res.status(500).send("Error fetching platforms from database");
+  }
 });
 
 // === GET /platforms/add ===

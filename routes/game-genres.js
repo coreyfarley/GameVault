@@ -1,42 +1,35 @@
 const express = require('express');
 const router = express.Router();
+const db = require('../database/db-connector');
 
-// Dummy data
-const games = [
-  { gameID: 1, title: 'The Witcher 3' },
-  { gameID: 2, title: 'Forza Horizon 5' }
-];
-
-const genres = [
-  { genreID: 1, name: 'RPG' },
-  { genreID: 2, name: 'Racing' },
-  { genreID: 3, name: 'Adventure' }
-];
-
-let gameGenres = [
-  { gameID: 1, genreID: 1 },
-  { gameID: 1, genreID: 3 },
-  { gameID: 2, genreID: 2 }
-];
-
-// GET /game-genres
-router.get('/', (req, res) => {
-  const associations = gameGenres.map(gg => {
-    const game = games.find(g => g.gameID === gg.gameID);
-    const genre = genres.find(g => g.genreID === gg.genreID);
-    return {
-      gameID: gg.gameID,
-      genreID: gg.genreID,
-      gameTitle: game ? game.title : 'Unknown',
-      genreName: genre ? genre.name : 'Unknown'
-    };
-  });
-  res.render('game-genres/list', { associations });
+// GET /game-genres - Display all game-genre associations (from database)
+router.get('/', async (req, res) => {
+  try {
+    const query = `
+      SELECT DISTINCT Games.title AS gameTitle, Genres.name AS genreName,
+             GameGenres.gameID, GameGenres.genreID
+      FROM GameGenres
+      INNER JOIN Games ON GameGenres.gameID = Games.gameID
+      INNER JOIN Genres ON GameGenres.genreID = Genres.genreID
+    `;
+    const [associations] = await db.query(query);
+    res.render('game-genres/list', { associations });
+  } catch (error) {
+    console.error("Error fetching game-genres:", error);
+    res.status(500).send("Error fetching game-genres from database");
+  }
 });
 
 // GET /game-genres/add
-router.get('/add', (req, res) => {
-  res.render('game-genres/add', { games, genres });
+router.get('/add', async (req, res) => {
+  try {
+    const [games] = await db.query('SELECT gameID, title FROM Games');
+    const [genres] = await db.query('SELECT genreID, name FROM Genres');
+    res.render('game-genres/add', { games, genres });
+  } catch (error) {
+    console.error("Error fetching games/genres:", error);
+    res.status(500).send("Error fetching games/genres from database");
+  }
 });
 
 // === POST /game-genres/add ===

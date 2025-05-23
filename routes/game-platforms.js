@@ -1,42 +1,35 @@
 const express = require('express');
 const router = express.Router();
+const db = require('../database/db-connector');
 
-// dummy data
-const games = [
-  { gameID: 1, title: 'The Witcher 3' },
-  { gameID: 2, title: 'Forza Horizon 5' }
-];
-
-const platforms = [
-  { platformID: 1, name: 'PC' },
-  { platformID: 2, name: 'Xbox' },
-  { platformID: 3, name: 'PlayStation' }
-];
-
-let gamePlatforms = [
-  { gameID: 1, platformID: 1 },
-  { gameID: 1, platformID: 3 },
-  { gameID: 2, platformID: 2 }
-];
-
-// GET /game-platforms
-router.get('/', (req, res) => {
-  const associations = gamePlatforms.map(gp => {
-    const game = games.find(g => g.gameID === gp.gameID);
-    const platform = platforms.find(p => p.platformID === gp.platformID);
-    return {
-      gameID: gp.gameID,
-      platformID: gp.platformID,
-      gameTitle: game ? game.title : 'Unknown',
-      platformName: platform ? platform.name : 'Unknown'
-    };
-  });
-  res.render('game-platforms/list', { associations });
+// GET /game-platforms - Display all game-platform associations (from database)
+router.get('/', async (req, res) => {
+  try {
+    const query = `
+      SELECT DISTINCT Games.title AS gameTitle, Platforms.name AS platformName, 
+             GamePlatforms.releaseDate, GamePlatforms.gameID, GamePlatforms.platformID
+      FROM GamePlatforms
+      INNER JOIN Games ON GamePlatforms.gameID = Games.gameID
+      INNER JOIN Platforms ON GamePlatforms.platformID = Platforms.platformID
+    `;
+    const [associations] = await db.query(query);
+    res.render('game-platforms/list', { associations });
+  } catch (error) {
+    console.error("Error fetching game-platforms:", error);
+    res.status(500).send("Error fetching game-platforms from database");
+  }
 });
 
 // GET /game-platforms/add
-router.get('/add', (req, res) => {
-  res.render('game-platforms/add', { games, platforms });
+router.get('/add', async (req, res) => {
+  try {
+    const [games] = await db.query('SELECT gameID, title FROM Games');
+    const [platforms] = await db.query('SELECT platformID, name FROM Platforms');
+    res.render('game-platforms/add', { games, platforms });
+  } catch (error) {
+    console.error("Error fetching games/platforms:", error);
+    res.status(500).send("Error fetching games/platforms from database");
+  }
 });
 
 // === POST /game-platforms/add ===

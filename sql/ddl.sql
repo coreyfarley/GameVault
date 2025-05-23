@@ -1,7 +1,11 @@
-SET FOREIGN_KEY_CHECKS=0;
-SET AUTOCOMMIT = 0;
+-- Stored Procedure to Reset GameVault Database
+DELIMITER //
+CREATE PROCEDURE ResetGameVaultDB()
+BEGIN
+    SET FOREIGN_KEY_CHECKS=0;
+    SET AUTOCOMMIT = 0;
 
-DROP TABLE IF EXISTS Users, Games, Publishers, Genres, Platforms, UserGameEntries, StatusCategories, GamePlatforms, GameGenres;
+    DROP TABLE IF EXISTS Users, Games, Publishers, Genres, Platforms, UserGameEntries, StatusCategories, GamePlatforms, GameGenres;
 
 -- CREATE queries --
 
@@ -201,3 +205,5 @@ INSERT INTO UserGameEntries (userID, gameID, statusID, hoursLogged, rating, revi
  (SELECT statusID FROM StatusCategories WHERE status = "Completed"),
  333, 8, "Soo immersive!", 1);
 
+END //
+DELIMITER ;

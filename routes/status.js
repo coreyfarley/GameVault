@@ -1,17 +1,17 @@
 const express = require('express');
 const router = express.Router();
+const db = require('../database/db-connector');
 
-// Dummy data for StatusCategories
-const statuses = [
-  { statusID: 601, statusName: 'Playing' },
-  { statusID: 602, statusName: 'Completed' },
-  { statusID: 603, statusName: 'Dropped' },
-  { statusID: 605, statusName: 'Wishlist' }
-];
-
-// GET /status - Display all statuses
-router.get('/', (req, res) => {
-  res.render('status/list', { statuses });
+// GET /status - Display all statuses (from database)
+router.get('/', async (req, res) => {
+  try {
+    const query = 'SELECT statusID, status AS statusName FROM StatusCategories';
+    const [statuses] = await db.query(query);
+    res.render('status/list', { statuses });
+  } catch (error) {
+    console.error("Error fetching status categories:", error);
+    res.status(500).send("Error fetching status categories from database");
+  }
 });
 
 // GET /status/add - Show form to add a new status
@@ -28,13 +28,18 @@ router.post('/add', (req, res) => {
 });
 
 // GET /status/edit/:id - Show form to edit an existing status
-router.get('/edit/:id', (req, res) => {
-  const statusID = parseInt(req.params.id);
-  const status = statuses.find(s => s.statusID === statusID);
-  if (status) {
-    res.render('status/edit', { status });
-  } else {
-    res.status(404).send('Status not found');
+router.get('/edit/:id', async (req, res) => {
+  try {
+    const statusID = parseInt(req.params.id);
+    const [statuses] = await db.query('SELECT * FROM StatusCategories WHERE statusID = ?', [statusID]);
+    if (statuses.length > 0) {
+      res.render('status/edit', { status: statuses[0] });
+    } else {
+      res.status(404).send('Status not found');
+    }
+  } catch (error) {
+    console.error("Error fetching status:", error);
+    res.status(500).send("Error fetching status from database");
   }
 });
 
@@ -56,6 +61,3 @@ router.post('/delete/:id', (req, res) => {
 });
 
 module.exports = router;
-
-
-

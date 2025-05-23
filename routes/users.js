@@ -1,17 +1,18 @@
 const express = require('express');
 const router = express.Router();
+const db = require('../database/db-connector');
 
 // === GET /users ===
-// Show all users (with dummy data for now)
-router.get('/', (req, res) => {
-  const users = [
-    { userID: 101, userName: 'bennyBeav52', email: 'benny@osu.edu', joinDate: '2024-01-15' },
-    { userID: 102, userName: 'speedRacer', email: 'f1fan@gmail.com', joinDate: '2016-11-25' },
-    { userID: 103, userName: 'apeX', email: 'apex@vitality.cs', joinDate: '2025-04-08' },
-    { userID: 104, userName: 'geralt_rivia', email: 'grivia@kaer_morhen.com', joinDate: '2019-08-22' }
-  ];
-
-  res.render('users/list', { users });
+// Show all users (from database)
+router.get('/', async (req, res) => {
+  try {
+    const query = 'SELECT * FROM Users';
+    const [users] = await db.query(query);
+    res.render('users/list', { users });
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    res.status(500).send("Error fetching users from database");
+  }
 });
 
 // === GET /users/add ===
@@ -54,13 +55,19 @@ router.post('/edit/:id', (req, res) => {
 });
 
 // === POST /users/delete/:id ===
-// Handle user deletion (placeholder logic)
-router.post('/delete/:id', (req, res) => {
+// Handle user deletion (actual database operation)
+router.post('/delete/:id', async (req, res) => {
+  try {
     const userID = req.params.id;
-    console.log(`Deleted user ${userID} (simulated)`);
-  
-    // In the future: DELETE FROM Users WHERE userID = ?
+    const query = 'DELETE FROM Users WHERE userID = ?';
+    await db.query(query, [userID]);
+    console.log(`Successfully deleted user ${userID}`);
     res.redirect('/users');
-  });
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    res.status(500).send(`Error deleting user: ${error.message}`);
+  }
+});
+
 
 module.exports = router;

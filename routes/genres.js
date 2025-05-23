@@ -1,17 +1,18 @@
 const express = require('express');
 const router = express.Router();
+const db = require('../database/db-connector');
 
 // === GET /genres ===
-// Display all genres (dummy data for now)
-router.get('/', (req, res) => {
-  const genres = [
-    { genreID: 301, name: 'Action-Adventure' },
-    { genreID: 302, name: 'Racing' },
-    { genreID: 303, name: 'First Person Shooter' },
-    { genreID: 304, name: 'RPG' }
-  ];
-
-  res.render('genres/list', { genres });
+// Display all genres (from database)
+router.get('/', async (req, res) => {
+  try {
+    const query = 'SELECT * FROM Genres';
+    const [genres] = await db.query(query);
+    res.render('genres/list', { genres });
+  } catch (error) {
+    console.error("Error fetching genres:", error);
+    res.status(500).send("Error fetching genres from database");
+  }
 });
 
 // === GET /genres/add ===
