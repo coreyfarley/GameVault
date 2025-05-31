@@ -8,6 +8,9 @@ router.get('/', async (req, res) => {
   try {
     const query = 'SELECT * FROM Users';
     const [users] = await db.query(query);
+    for (var i = 0; i < users.length; i++) {
+        users[i].joinDate = users[i].joinDate.toISOString().split('T')[0];
+    }
     res.render('users/list', { users });
   } catch (error) {
     console.error("Error fetching users:", error);
@@ -52,7 +55,7 @@ router.get('/edit/:id', async (req, res) => {
     res.render('users/edit', { user: editUser });
   } catch (error) {
     console.error("Error retrieving :", error);
-    res.status(500).send("Error fetching users from database");
+    res.status(500).send("Error fetching user from database");
   }
 
 });
@@ -73,7 +76,7 @@ router.post('/edit/:id', async (req, res) => {
     console.log(`Successfully updated user ${userID}`);
     res.redirect('/users');
   } catch (error) {
-    console.error("Error updatinguser:", error);
+    console.error("Error updating user:", error);
     res.status(500).send(`Error updating user: ${error.message}`);
   }
 });
