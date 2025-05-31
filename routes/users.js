@@ -8,6 +8,9 @@ router.get('/', async (req, res) => {
   try {
     const query = 'SELECT * FROM Users';
     const [users] = await db.query(query);
+    for (var i = 0; i < users.length; i++) {
+        users[i].joinDate = users[i].joinDate.toISOString().split('T')[0];
+    }
     res.render('users/list', { users });
   } catch (error) {
     console.error("Error fetching users:", error);
