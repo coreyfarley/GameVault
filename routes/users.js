@@ -52,7 +52,7 @@ router.get('/edit/:id', async (req, res) => {
     res.render('users/edit', { user: editUser });
   } catch (error) {
     console.error("Error retrieving :", error);
-    res.status(500).send("Error fetching users from database");
+    res.status(500).send("Error fetching user from database");
   }
 
 });
@@ -73,7 +73,7 @@ router.post('/edit/:id', async (req, res) => {
     console.log(`Successfully updated user ${userID}`);
     res.redirect('/users');
   } catch (error) {
-    console.error("Error updatinguser:", error);
+    console.error("Error updating user:", error);
     res.status(500).send(`Error updating user: ${error.message}`);
   }
 });
