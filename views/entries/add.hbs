@@ -16,19 +16,23 @@
   </select><br><br>
 
   <label for="statusID">Status:</label><br>
-  <input type="text" id="statusID" name="statusID" required><br><br>
+  <select id="statusID" name="status">
+    {{#each statuses}}
+      <option value="{{this.statusID}}">{{this.status}}</option>
+    {{/each}}
+  </select><br><br>
 
   <label for="hoursLogged">Hours logged:</label><br>
-  <input type="number" id="hoursLogged" name="hoursLogged" value="{{entry.hoursLogged}}" min="0" max="99999"><br><br>
+  <input type="number" id="hoursLogged" name="hoursLogged" required value="{{entry.hoursLogged}}" min="0" max="99999"><br><br>
 
   <label for="rating">Rating:</label><br>
-  <input type="number" id="rating" name="rating" min="1" max="10"><br><br>
+  <input type="number" id="rating" name="rating" required min="1" max="10"><br><br>
 
   <label for="review">Notes:</label><br>
   <textarea id="review" name="review"></textarea><br><br>
 
   <label for="rating">Has favorited:</label><br>
-  <input type="number" id="hasFavorited" name="hasFavorited" value="{{entry.hasFavorited}}" min="0" max="1"><br><br>
+  <input type="number" id="hasFavorited" name="hasFavorited" required value="{{entry.hasFavorited}}" min="0" max="1"><br><br>
 
   <button type="submit">Add Entry</button>
 </form>
