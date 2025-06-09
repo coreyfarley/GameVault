@@ -16,7 +16,7 @@
   </select><br><br>
 
   <label for="statusID">Status:</label><br>
-  <select id="statusID" name="status" required>
+  <select id="statusID" name="statusID" required>
     {{#each statuses}}
       <option value="{{this.statusID}}" {{#if (eq this.statusID ../entry.statusID)}}selected{{/if}}>{{this.status}}</option>
     {{/each}}
