@@ -51,13 +51,23 @@ app.use('/game-genres', gameGenresRoutes);
 
 
 // Set up DB before starting server
-try {
-  const query = 'CALL ResetGameVaultDB();';
-  db.query(query);
-  // Start server
-  app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-  });
-} catch (error) {
-  console.error("Error executing ResetGameVaultDB on server startup:", error);
-}
+(async function initializeApp() {
+  try {
+    const query = 'CALL ResetGameVaultDB();';
+    await db.query(query);
+    console.log("Database initialized successfully");
+    
+    // Start server after database is initialized
+    app.listen(PORT, () => {
+      console.log(`Server running on http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error("Error executing ResetGameVaultDB on server startup:", error);
+    console.error("Starting server without database initialization...");
+    
+    // Start server even if database initialization fails
+    app.listen(PORT, () => {
+      console.log(`Server running on http://localhost:${PORT} (database may not be initialized)`);
+    });
+  }
+})();

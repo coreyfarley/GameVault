@@ -26,8 +26,6 @@ router.get('/add', (req, res) => {
 router.post('/add', (req, res) => {
   const { name } = req.body;
   console.log('New publisher submitted:', { name });
-
-  // In the future: INSERT INTO Publishers ...
   res.redirect('/publishers');
 });
 
@@ -47,8 +45,6 @@ router.get('/edit/:id', (req, res) => {
 router.post('/edit/:id', (req, res) => {
   const { name } = req.body;
   console.log(`Updated publisher ${req.params.id}:`, { name });
-
-  // In the future: UPDATE Publishers SET ...
   res.redirect('/publishers');
 });
 
@@ -57,8 +53,6 @@ router.post('/edit/:id', (req, res) => {
 router.post('/delete/:id', (req, res) => {
   const publisherID = req.params.id;
   console.log(`Deleted publisher ${publisherID} (simulated)`);
-
-  // In the future: DELETE FROM Publishers WHERE publisherID = ?
   res.redirect('/publishers');
 });
 

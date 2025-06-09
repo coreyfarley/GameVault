@@ -26,8 +26,6 @@ router.get('/add', (req, res) => {
 router.post('/add', (req, res) => {
   const { name } = req.body;
   console.log('New genre submitted:', { name });
-
-  // In the future: INSERT INTO Genres ...
   res.redirect('/genres');
 });
 
@@ -47,8 +45,6 @@ router.get('/edit/:id', (req, res) => {
 router.post('/edit/:id', (req, res) => {
   const { name } = req.body;
   console.log(`Updated genre ${req.params.id}:`, { name });
-
-  // In the future: UPDATE Genres SET ...
   res.redirect('/genres');
 });
 
@@ -57,8 +53,6 @@ router.post('/edit/:id', (req, res) => {
 router.post('/delete/:id', (req, res) => {
   const genreID = req.params.id;
   console.log(`Deleted genre ${genreID} (simulated)`);
-
-  // In the future: DELETE FROM Genres WHERE genreID = ?
   res.redirect('/genres');
 });
 

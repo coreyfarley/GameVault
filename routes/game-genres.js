@@ -37,8 +37,6 @@ router.get('/add', async (req, res) => {
 router.post('/add', (req, res) => {
     const { gameID, genreID } = req.body;
     console.log(`Added game-genre association: gameID=${gameID}, genreID=${genreID} (simulated)`);
-  
-    // In the future: INSERT INTO GameGenres (gameID, genreID) VALUES (?, ?)
     res.redirect('/game-genres');
   });
   
@@ -48,8 +46,6 @@ router.post('/add', (req, res) => {
 router.post('/delete', (req, res) => {
     const { gameID, genreID } = req.body;
     console.log(`Deleted game-genre association: gameID=${gameID}, genreID=${genreID} (simulated)`);
-  
-    // In the future: DELETE FROM GameGenres WHERE gameID = ? AND genreID = ?
     res.redirect('/game-genres');
   });
   

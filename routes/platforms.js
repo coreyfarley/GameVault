@@ -26,8 +26,6 @@ router.get('/add', (req, res) => {
 router.post('/add', (req, res) => {
   const { name } = req.body;
   console.log('New platform submitted:', { name });
-
-  // In the future: INSERT INTO Platforms ...
   res.redirect('/platforms');
 });
 
@@ -47,8 +45,6 @@ router.get('/edit/:id', (req, res) => {
 router.post('/edit/:id', (req, res) => {
   const { name } = req.body;
   console.log(`Updated platform ${req.params.id}:`, { name });
-
-  // In the future: UPDATE Platforms SET ...
   res.redirect('/platforms');
 });
 
@@ -57,8 +53,6 @@ router.post('/edit/:id', (req, res) => {
 router.post('/delete/:id', (req, res) => {
   const platformID = req.params.id;
   console.log(`Deleted platform ${platformID} (simulated)`);
-
-  // In the future: DELETE FROM Platforms WHERE platformID = ?
   res.redirect('/platforms');
 });
 

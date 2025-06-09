@@ -37,8 +37,6 @@ router.get('/add', async (req, res) => {
 router.post('/add', (req, res) => {
     const { gameID, platformID } = req.body;
     console.log(`Added game-platform association: gameID=${gameID}, platformID=${platformID} (simulated)`);
-  
-    // In the future: INSERT INTO GamePlatforms (gameID, platformID) VALUES (?, ?)
     res.redirect('/game-platforms');
   });
 
@@ -47,8 +45,6 @@ router.post('/add', (req, res) => {
 router.post('/delete', (req, res) => {
     const { gameID, platformID } = req.body;
     console.log(`Deleted game-platform association: gameID=${gameID}, platformID=${platformID} (simulated)`);
-  
-    // In the future: DELETE FROM GamePlatforms WHERE gameID = ? AND platformID = ?
     res.redirect('/game-platforms');
   });
 
