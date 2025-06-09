@@ -49,8 +49,15 @@ app.use('/status', statusRoutes);
 app.use('/game-platforms', gamePlatformsRoutes);
 app.use('/game-genres', gameGenresRoutes);
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
 
+// Set up DB before starting server
+try {
+  const query = 'CALL ResetGameVaultDB();';
+  db.query(query);
+  // Start server
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+  });
+} catch (error) {
+  console.error("Error executing ResetGameVaultDB on server startup:", error);
+}

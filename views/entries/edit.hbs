@@ -15,8 +15,12 @@
     {{/each}}
   </select><br><br>
 
-  <label for="status">Status:</label><br>
-  <input type="text" id="statusID" name="statusID" value="{{entry.statusID}}" required><br><br>
+  <label for="statusID">Status:</label><br>
+  <select id="statusID" name="status" required>
+    {{#each statuses}}
+      <option value="{{this.statusID}}" {{#if (eq this.statusID ../entry.statusID)}}selected{{/if}}>{{this.status}}</option>
+    {{/each}}
+  </select><br><br>
 
   <label for="hoursLogged">Hours logged:</label><br>
   <input type="number" id="hoursLogged" name="hoursLogged" value="{{entry.hoursLogged}}" min="0" max="99999"><br><br>

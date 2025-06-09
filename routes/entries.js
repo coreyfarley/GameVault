@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
       FROM UserGameEntries
       INNER JOIN Users ON UserGameEntries.userID = Users.userID
       INNER JOIN Games ON UserGameEntries.gameID = Games.gameID
-      INNER JOIN StatusCategories ON UserGameEntries.statusID = StatusCategories.statusID
+      LEFT JOIN StatusCategories ON UserGameEntries.statusID = StatusCategories.statusID
     `;
     const [entries] = await db.query(query);
     res.render('entries/list', { entries });
@@ -29,7 +29,7 @@ router.get('/add', async (req, res) => {
 
   let users = undefined
   let games = undefined
-  let status_cat = undefined
+  let statuses = undefined
 
   try {
     const query = `
@@ -58,13 +58,13 @@ router.get('/add', async (req, res) => {
       SELECT statusID, status FROM StatusCategories;
     `;
     const status_query = await db.query(query);
-    status_cat = status_query[0]
+    statuses = status_query[0]
   } catch (error) {
     console.error("Error fetching status:", error);
     res.status(500).send("Error fetching status from database");
   }
 
-  res.render('entries/add', { users, games });
+  res.render('entries/add', { users, games, statuses });
 });
 
 // === POST /entries/add ===
@@ -96,7 +96,7 @@ router.get('/edit/:id', async (req, res) => {
 
   let users = undefined
   let games = undefined
-  let status_cat = undefined
+  let statuses = undefined
 
   try {
     const query = `
@@ -125,7 +125,7 @@ router.get('/edit/:id', async (req, res) => {
       SELECT statusID, status FROM StatusCategories;
     `;
     const status_query = await db.query(query);
-    status_cat = status_query[0]
+    statuses = status_query[0]
   } catch (error) {
     console.error("Error fetching status:", error);
     res.status(500).send("Error fetching status from database");
@@ -136,7 +136,7 @@ router.get('/edit/:id', async (req, res) => {
     const query = 'SELECT * FROM UserGameEntries WHERE entryID = ?';
     const [entrys] = await db.query(query, [entryID]);
     editEntry = entrys[0]
-    res.render('entries/edit', { entry: editEntry, users, games });
+    res.render('entries/edit', { entry: editEntry, users, games, statuses });
   } catch (error) {
     console.error("Error retrieving :", error);
     res.status(500).send("Error fetching entry from database");
